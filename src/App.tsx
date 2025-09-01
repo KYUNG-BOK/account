@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { formatKRW } from "./lib/format";
 import { useBudget } from "./hooks/useBudget";
 import type { Transaction } from "./types/budget";
-import { SummaryCard, DayHeader, EmptyState, TxModal } from "./components";
+import { SummaryCard, DayHeader, EmptyState, TxModal, TxDetailModal } from "./components";
 
 
 type TabKey = "all" | "income" | "expense";
@@ -15,6 +15,11 @@ export default function App() {
     monthTx, totals, selectedYM, setSelectedYM,
     add, update, remove, clearMonth, exportJSON, importJSON,
   } = useBudget();
+
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailTx, setDetailTx] = useState<Transaction | null>(null);
+
+  const openDetail = (t: Transaction) => { setDetailTx(t); setDetailOpen(true); };
 
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Transaction | null>(null);
@@ -177,6 +182,7 @@ export default function App() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -6 }}
                           transition={spring}
+                          onClick={() => openDetail(t)}
                           className="rounded-xl bg-white border border-slate-200 shadow-sm"
                         >
                           <div className="p-3 sm:p-4 flex items-center justify-between gap-3">
@@ -233,6 +239,14 @@ export default function App() {
         initial={editing}
         onSave={(next) => { editing ? update(next) : add(next); }}
       />
+
+      <TxDetailModal
+  open={detailOpen}
+  tx={detailTx}
+  onClose={() => setDetailOpen(false)}
+  onEdit={(t) => { setDetailOpen(false); /* 여기서 수정 모달 열기 */ }}
+  onDelete={(id) => { remove(id); setDetailOpen(false); }}
+/>
     </div>
   );
 }

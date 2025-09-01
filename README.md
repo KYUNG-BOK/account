@@ -1,69 +1,67 @@
-# React + TypeScript + Vite
+# 📒 나만의 가계부 (Budget Starter)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> React + TypeScript + Tailwind + Framer Motion 기반 가계부 템플릿  
+> 틀은 기본적으로 제공하고, 확장은 저희가 활용했던 AG-GRID & Charts, 지도 API 등을 사용하여 자유롭게 해주시면 됩니다!
+> CSS도 원하는대로 꾸미시면 됩니다!
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ 주요 기능
 
-## Expanding the ESLint configuration
+- 월별 요약 카드 (수입 / 지출 / 잔액)
+- 내역 추가 / 수정 / 삭제 (모달 입력)
+- 카테고리 / 메모 검색
+- 수입/지출/전체 탭 필터
+- JSON Import / Export
+- 반응형 레이아웃 (모바일 FAB 버튼)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🔌 확장 포인트
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+| 영역         | 기본 제공              | 확장 가능                         |
+|--------------|-----------------------|----------------------------------|
+| 리스트 뷰    | SimpleListView (카드) | AgGridView (ag-grid 테이블)       |
+| 데이터 입출력 | JSON                  | XLSX (Excel, SheetJS 기반)        |
+| 상세 모달    | TxModal (폼 입력)     | TxDetailModal (지도, 가맹점 정보) |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🗂️ 폴더 구조
+
+```
+src/
+  components/
+    index.ts
+    SummaryCard.tsx
+    DayHeader.tsx
+    EmptyState.tsx
+    TxModal.tsx
+    TxDetailModal.tsx
+  hooks/
+    useBudget.ts
+  lib/
+    format.ts
+  types/
+    budget.ts
+App.tsx
+main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 시작하기
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 설치
+npm install
+
+# 실행
+npm run dev
 ```
+
+---
+
+## 📜 라이선스
+
+MIT License
