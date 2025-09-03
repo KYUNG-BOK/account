@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
+    "ag-charts-enterprise": "^12.1.2",
+    "ag-grid-community": "^34.1.2",
+    "ag-grid-enterprise": "^34.1.2",
+    "ag-grid-react": "^34.1.2",
     "clsx": "^2.1.1",
     "daisyui": "^5.0.54",
     "framer-motion": "^12.23.12",
