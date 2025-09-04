@@ -28,6 +28,7 @@ export default function App() {
     clearMonth,
     exportJSON,
     importJSON,
+    importExcel,
   } = useBudget();
 
   // 상태 관리
@@ -90,6 +91,7 @@ export default function App() {
         exportJSON={exportJSON}
         importJSON={importJSON}
         clearMonth={clearMonth}
+        importExcel={importExcel}
       />
 
       <div className="mx-auto max-w-5xl px-4 pb-28">

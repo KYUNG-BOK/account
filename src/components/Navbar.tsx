@@ -1,3 +1,5 @@
+import React from "react";
+
 type Props = {
   selectedYM: string;
   setSelectedYM: (v: string) => void;
@@ -5,6 +7,7 @@ type Props = {
   exportJSON: () => void;
   importJSON: (f: File) => void;
   clearMonth: () => void;
+  importExcel: (f: File) => void; // ⬅️ 추가
 };
 
 export default function Navbar({
@@ -14,7 +17,20 @@ export default function Navbar({
   exportJSON,
   importJSON,
   clearMonth,
+  importExcel, // ⬅️ 추가
 }: Props) {
+  const onImportJson = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    if (f) importJSON(f);
+    e.currentTarget.value = "";
+  };
+
+  const onImportExcel = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    if (f) importExcel(f);
+    e.currentTarget.value = "";
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white/85 backdrop-blur border-b border-slate-200">
       <div className="mx-auto max-w-5xl px-4 h-14 flex items-center justify-between">
@@ -32,12 +48,13 @@ export default function Navbar({
           >
             + 내역 추가
           </button>
+
           <div className="relative">
             <details className="group">
               <summary className="list-none h-9 leading-9 rounded-md border border-slate-300 px-3 text-sm cursor-pointer hover:bg-slate-50">
                 설정
               </summary>
-              <ul className="absolute right-0 mt-2 w-48 rounded-md border border-slate-200 bg-white shadow-lg p-1 text-sm">
+              <ul className="absolute right-0 mt-2 w-52 rounded-md border border-slate-200 bg-white shadow-lg p-1 text-sm">
                 <li>
                   <button
                     className="w-full px-3 py-2 rounded hover:bg-slate-50 text-left"
@@ -46,6 +63,8 @@ export default function Navbar({
                     내보내기(JSON)
                   </button>
                 </li>
+
+                {/* 가져오기(JSON) */}
                 <li>
                   <label className="w-full px-3 py-2 rounded hover:bg-slate-50 block cursor-pointer">
                     가져오기(JSON)
@@ -53,14 +72,24 @@ export default function Navbar({
                       type="file"
                       accept="application/json"
                       className="hidden"
-                      onChange={(e) => {
-                        const f = e.target.files?.[0];
-                        if (f) importJSON(f);
-                        e.currentTarget.value = "";
-                      }}
+                      onChange={onImportJson}
                     />
                   </label>
                 </li>
+
+                {/* 가져오기(엑셀) */}
+                <li>
+                  <label className="w-full px-3 py-2 rounded hover:bg-slate-50 block cursor-pointer">
+                    가져오기(엑셀)
+                    <input
+                      type="file"
+                      accept=".xlsx,.xls"
+                      className="hidden"
+                      onChange={onImportExcel}
+                    />
+                  </label>
+                </li>
+
                 <li>
                   <button
                     className="w-full px-3 py-2 rounded hover:bg-red-50 text-red-600 text-left"
